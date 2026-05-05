@@ -31,7 +31,7 @@ class Movie(db.Model):
 def index():
     status_filter = request.args.get("status")
     genre_filter = request.args.get("genre")
-    
+
     movies = Movie.query
     if status_filter:
         movies = movies.filter_by(status=status_filter)
@@ -41,9 +41,9 @@ def index():
 
     all_genres = db.session.query(Movie.genre).filter(Movie.genre != None).all()
     genres = sorted(set(
-        g.strip() 
-        for row in all_genres 
-        for g in row[0].split(",") 
+        g.strip()
+        for row in all_genres
+        for g in row[0].split(",")
         if g.strip()
     ))
 
@@ -98,19 +98,6 @@ def add_movie():
     db.session.commit()
     return redirect(url_for("index"))
 
-    movie = Movie(
-        title=title,
-        overview=overview,
-        release_date=release_date,
-        rating=float(rating) if rating else None,
-        poster_path=poster_path,
-        tmdb_id=int(tmdb_id) if tmdb_id else None,
-        status=status
-    )
-    db.session.add(movie)
-    db.session.commit()
-    return redirect(url_for("index"))
-
 @app.route("/delete/<int:movie_id>")
 def delete_movie(movie_id):
     movie = Movie.query.get_or_404(movie_id)
@@ -139,22 +126,23 @@ def stats():
     watched = Movie.query.filter_by(status="Watched").count()
     watching = Movie.query.filter_by(status="Watching").count()
     want = Movie.query.filter_by(status="Want to Watch").count()
-    
+
     avg_rating = db.session.query(db.func.avg(Movie.my_rating)).scalar()
     avg_rating = round(avg_rating, 1) if avg_rating else 0
 
-    return render_template("stats.html", 
-        total=total, 
-        watched=watched, 
-        watching=watching, 
+    return render_template("stats.html",
+        total=total,
+        watched=watched,
+        watching=watching,
         want=want,
         avg_rating=avg_rating
     )
+
 @app.route("/recommendations")
 def recommendations():
     API_KEY = os.getenv("TMDB_API_KEY")
     watched = Movie.query.filter_by(status="Watched").all()
-    
+
     seen_ids = {m.tmdb_id for m in watched}
     recommended = []
     seen_recommended = set()
@@ -172,7 +160,7 @@ def recommendations():
 
     return render_template("recommendations.html", recommendations=recommended[:12])
 
-iwith app.app_context():
+with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
