@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieTracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="page-title">🎬 Movie Tracker</h1>
+        <div>
+            <a href="/stats" class="btn btn-outline-light me-2">📊 Stats</a>
+            <a href="/search" class="btn btn-primary">+ Add Movie</a>
+        </div>
+    </div>
+
+    <!-- Status filters -->
+<div class="mb-2">
+    <a href="/" class="filter-btn btn {{ 'active' if not request.args.get('status') and not request.args.get('genre') }}">All</a>
+    <a href="/?status=Watched" class="filter-btn btn {{ 'active' if request.args.get('status') == 'Watched' }}">Watched</a>
+    <a href="/?status=Watching" class="filter-btn btn {{ 'active' if request.args.get('status') == 'Watching' }}">Watching</a>
+    <a href="/?status=Want to Watch" class="filter-btn btn {{ 'active' if request.args.get('status') == 'Want to Watch' }}">Want to Watch</a>
+</div>
+
+<!-- Genre filters -->
+{% if genres %}
+<div class="mb-4">
+    {% for genre in genres %}
+    <a href="/?genre={{ genre }}" class="filter-btn btn {{ 'active' if request.args.get('genre') == genre }}">{{ genre }}</a>
+    {% endfor %}
+</div>
+{% endif %}
+
+    {% if movies %}
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <a href="/movie/{{ movie.id }}">
+                    {% if movie.poster_path %}
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top">
+                    {% endif %}
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="text-warning small">⭐ {{ movie.my_rating }}/10</p>
+                    <form action="/update/{{ movie.id }}" method="POST" class="mb-2">
+                        <select name="status" class="form-select form-select-sm mb-2" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2);">
+                            <option value="Watched" {{ 'selected' if movie.status == 'Watched' }}>Watched</option>
+                            <option value="Watching" {{ 'selected' if movie.status == 'Watching' }}>Watching</option>
+                            <option value="Want to Watch" {{ 'selected' if movie.status == 'Want to Watch' }}>Want to Watch</option>
+                        </select>
+                        <input type="number" name="my_rating" class="form-control form-control-sm mb-2" placeholder="Rate /10" min="1" max="10" value="{{ movie.my_rating or '' }}" style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2);">
+                        <button type="submit" class="btn btn-warning btn-sm w-100">Update</button>
+                    </form>
+                    <a href="/delete/{{ movie.id }}" class="btn btn-danger btn-sm w-100">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p class="text-center mt-5 text-muted">No movies yet. <a href="/search">Add some!</a></p>
+    {% endif %}
+</div>
+<div>
+    <a href="/recommendations" class="btn btn-outline-light me-2">🌸 For You</a>
+    <a href="/stats" class="btn btn-outline-light me-2">📊 Stats</a>
+    <a href="/search" class="btn btn-primary">+ Add Movie</a>
+</div>
+</body>
+</html>

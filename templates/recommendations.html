@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations - MovTracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container mt-5">
+    <a href="/" class="btn btn-outline-light mb-4">← Back</a>
+    <h1 class="page-title mb-2">🌸 just for you</h1>
+    <p class="text-muted mb-5">based on what you've watched</p>
+
+    {% if recommendations %}
+    <div class="row">
+        {% for movie in recommendations %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                {% if movie['poster_path'] %}
+                <img src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}" class="card-img-top">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie['title'] }}</h5>
+                    <p class="small text-muted">{{ movie['release_date'][:4] if movie['release_date'] else 'N/A' }}</p>
+                    <p class="small" style="color: #8a7a9a;">{{ movie['overview'][:100] if movie['overview'] else '' }}...</p>
+                    <form action="/add" method="POST">
+                        <input type="hidden" name="title" value="{{ movie['title'] }}">
+                        <input type="hidden" name="overview" value="{{ movie['overview'] }}">
+                        <input type="hidden" name="release_date" value="{{ movie['release_date'] }}">
+                        <input type="hidden" name="rating" value="{{ movie['vote_average'] }}">
+                        <input type="hidden" name="poster_path" value="{{ movie['poster_path'] }}">
+                        <input type="hidden" name="tmdb_id" value="{{ movie['id'] }}">
+                        <input type="hidden" name="genre" value="">
+                        <select name="status" class="form-select form-select-sm mb-2">
+                            <option value="Watched">Watched</option>
+                            <option value="Watching">Watching</option>
+                            <option value="Want to Watch">Want to Watch</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">+ Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="text-center mt-5">
+            <p style="font-family: 'Amatic SC', cursive; font-size: 2rem; color: #b07fbd;">
+                watch some movies first 🎀
+            </p>
+            <p class="text-muted">add movies with "Watched" status to get recommendations</p>
+            <a href="/search" class="btn btn-primary mt-2">+ Add a movie</a>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

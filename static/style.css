@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Nunito:wght@300;400;600&display=swap');
+
+* {
+    font-family: 'Nunito', sans-serif;
+}
+
+h1, h2, h3, .page-title, .card-title, .navbar-brand {
+    font-family: 'Amatic SC', cursive;
+}
+
+body {
+    background: linear-gradient(135deg, #ffecd2, #fcb69f, #ffecd2, #a8edea);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
+    min-height: 100vh;
+    color: #5a4a6a;
+    font-size: 1.1rem;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.page-title {
+    font-family: 'Amatic SC', cursive;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #b07fbd;
+    letter-spacing: 2px;
+}
+
+.card {
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(176, 127, 189, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #5a4a6a !important;
+    min-height: 420px;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(176, 127, 189, 0.3);
+}
+
+.card img {
+    border-radius: 20px 20px 0 0;
+}
+
+.card-title {
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #7c5c8a;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #c9a7e0, #f7b8c4);
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    color: white;
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #f7b8c4, #c9a7e0);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.btn-danger {
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ffb3ba, #ff8fa3);
+    border: none;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #ff8fa3, #ffb3ba);
+    color: white;
+}
+
+.btn-warning {
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ffd6a5, #ffb347);
+    border: none;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #ffb347, #ffd6a5);
+    color: white;
+}
+
+.btn-outline-light {
+    border-radius: 25px;
+    border: 2px solid #c9a7e0;
+    color: #7c5c8a;
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.1rem;
+}
+
+.btn-outline-light:hover {
+    background: #c9a7e0;
+    color: white;
+    border-color: #c9a7e0;
+}
+
+.filter-btn {
+    border-radius: 25px;
+    margin: 5px;
+    border: 2px solid #c9a7e0;
+    background: rgba(255,255,255,0.5);
+    color: #7c5c8a;
+    padding: 5px 20px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: linear-gradient(135deg, #c9a7e0, #f7b8c4);
+    border-color: transparent;
+    color: white;
+}
+
+.stats-card {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(201, 167, 224, 0.3);
+    box-shadow: 0 8px 25px rgba(176, 127, 189, 0.15);
+}
+
+.stats-number {
+    font-family: 'Amatic SC', cursive;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #b07fbd;
+}
+
+.search-input {
+    background: rgba(255,255,255,0.7) !important;
+    border: 2px solid #c9a7e0 !important;
+    color: #5a4a6a !important;
+    border-radius: 25px !important;
+    padding: 10px 20px !important;
+    font-family: 'Nunito', sans-serif;
+}
+
+.search-input::placeholder {
+    color: #b0a0ba !important;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 0 3px rgba(201, 167, 224, 0.3) !important;
+    border-color: #b07fbd !important;
+}
+
+select {
+    border-radius: 15px !important;
+    border: 2px solid #c9a7e0 !important;
+    color: #5a4a6a !important;
+    background: rgba(255,255,255,0.7) !important;
+}
+
+input[type="number"] {
+    border-radius: 15px !important;
+    border: 2px solid #c9a7e0 !important;
+    color: #5a4a6a !important;
+    background: rgba(255,255,255,0.7) !important;
+}
+
+input[type="number"]::placeholder {
+    color: #b0a0ba !important;
+}
+
+.text-muted {
+    color: #a090b0 !important;
+}
+
+.text-warning {
+    color: #e8a045 !important;
+}
+
+.img-fluid {
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(176, 127, 189, 0.3);
+}
+
+a {
+    color: #b07fbd;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c9a7e0;
+}

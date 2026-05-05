@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: movtracker
+    env: native
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
