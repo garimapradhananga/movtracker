@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Sign up - MovTracker{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-5">
+        <h1 class="page-title text-center mb-4">make your list 🍿</h1>
+        <div class="stats-card">
+            <form method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" name="username" class="form-control search-input mb-1"
+                       placeholder="username" value="{{ username }}" autocomplete="username"
+                       minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+" required autofocus>
+                <div class="text-muted small mb-3">3-20 characters: letters, numbers, underscores</div>
+                <input type="password" name="password" class="form-control search-input mb-1"
+                       placeholder="password" autocomplete="new-password" minlength="8" required>
+                <div class="text-muted small mb-3">at least 8 characters</div>
+                <input type="password" name="confirm" class="form-control search-input mb-3"
+                       placeholder="confirm password" autocomplete="new-password" minlength="8" required>
+                <button type="submit" class="btn btn-primary w-100">Sign up</button>
+            </form>
+            <p class="text-muted small mt-3 mb-0">
+                already have an account? <a href="{{ url_for('login') }}">Log in</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
