@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Log in - MovTracker{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-5">
+        <h1 class="page-title text-center mb-4">welcome back 🎀</h1>
+        <div class="stats-card">
+            <form method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="text" name="username" class="form-control search-input mb-3"
+                       placeholder="username" value="{{ username }}" autocomplete="username" required autofocus>
+                <input type="password" name="password" class="form-control search-input mb-3"
+                       placeholder="password" autocomplete="current-password" required>
+                <button type="submit" class="btn btn-primary w-100">Log in</button>
+            </form>
+            <p class="text-muted small mt-3 mb-0">
+                new here? <a href="{{ url_for('register') }}">Create an account</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
