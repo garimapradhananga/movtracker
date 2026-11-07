@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}MovieTracker{% endblock %}
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="page-title" style="font-size: 5rem;">🎬 Movie Tracker</h1>
+    <p class="mb-4" style="font-size: 1.3rem;">
+        your own movie diary. save what you've watched, rate it,<br>
+        and get recommendations based on <em>your</em> taste.
+    </p>
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-2">Create my account</a>
+    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Log in</a>
+</div>
+{% endblock %}
